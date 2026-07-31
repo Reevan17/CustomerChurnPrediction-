@@ -19,7 +19,7 @@ The goal of this project is to develop a machine learning model that predicts cu
 - ✅ Exploratory Data Analysis (EDA)
 - ✅ Data Preprocessing
 - ✅ Baseline Model (Logistic Regression)
-- ⏳ Model Comparison
+- ✅ Model Comparison
 - ⏳ Hyperparameter Tuning
 - ⏳ Final Model
 
@@ -71,8 +71,6 @@ Each row represents one telecom customer, and the objective is to predict whethe
 
 # 🔍 Exploratory Data Analysis (EDA)
 
-The EDA focused on understanding customer behavior and identifying factors that influence churn.
-
 ### Analysis Performed
 
 - Dataset overview
@@ -113,59 +111,47 @@ The preprocessing pipeline included:
 
 ---
 
-# 🤖 Baseline Model
-
-The first classification model built for this project is **Logistic Regression**, which serves as the baseline for comparing more advanced machine learning models.
-
-## Baseline Model Performance
+# 🤖 Baseline Model (Logistic Regression)
 
 | Metric | Score |
 |---------|------:|
-| Accuracy | **79%** |
-| Precision (Churn) | **62%** |
-| Recall (Churn) | **52%** |
-| F1-Score (Churn) | **56%** |
+| Accuracy | **78.75%** |
+| Precision | **62.06%** |
+| Recall | **51.60%** |
+| F1-Score | **56.35%** |
 | ROC-AUC | **0.8319** |
 
-### Key Observations
-
-- The model achieved good overall accuracy (**79%**).
-- It performs well in identifying customers who stay with the company.
-- It detects approximately **52%** of customers who actually churn.
-- The **ROC-AUC score of 0.8319** indicates a strong ability to distinguish between customers who churn and those who stay.
-- This model serves as a benchmark for evaluating more advanced classification algorithms.
+The Logistic Regression model served as the baseline and demonstrated strong overall performance, particularly in terms of ROC-AUC and balanced classification performance.
 
 ---
 
 # 📊 Model Comparison
 
-The following machine learning models will be compared:
+Three machine learning algorithms were compared:
 
-- Logistic Regression
-- Decision Tree Classifier
-- Random Forest Classifier
-- XGBoost Classifier *(optional)*
+| Model | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
+|--------|---------:|----------:|--------:|---------:|--------:|
+| Logistic Regression | **0.7875** | 0.6206 | 0.5160 | **0.5635** | **0.8319** |
+| Decision Tree | 0.7335 | 0.4988 | **0.5481** | 0.5223 | 0.6739 |
+| Random Forest | 0.7846 | **0.6300** | 0.4599 | 0.5317 | 0.8179 |
 
-Each model will be evaluated using:
+### Key Observations
 
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- ROC-AUC Score
-
-The best-performing model will be selected based on its ability to accurately identify customers at risk of churn.
+- **Logistic Regression** achieved the highest overall performance based on **F1-Score** and **ROC-AUC**.
+- **Decision Tree** achieved the highest recall but showed significant overfitting.
+- **Random Forest** achieved the highest precision but missed more churning customers than Logistic Regression.
+- Logistic Regression was selected as the strongest baseline model before hyperparameter tuning.
 
 ---
 
 # 🎯 Hyperparameter Tuning
 
-The best-performing model from the comparison stage will be optimized using:
+The next stage focuses on optimizing the best-performing models using:
 
 - RandomizedSearchCV
 - GridSearchCV *(optional)*
 
-The tuned model will then be evaluated on the test dataset to improve predictive performance.
+The goal is to reduce overfitting and improve churn prediction performance.
 
 ---
 
@@ -175,8 +161,8 @@ The final notebook will include:
 
 - Training the optimized model
 - Final model evaluation
-- Feature importance analysis (if applicable)
-- Saving the trained model for future predictions
+- Feature importance analysis
+- Saving the trained model
 
 ---
 
@@ -186,14 +172,14 @@ The final notebook will include:
 - Exploratory Data Analysis (EDA)
 - Data Cleaning
 - Missing Value Handling
-- Feature Engineering
 - Label Encoding
 - One-Hot Encoding
 - Feature Scaling
 - Logistic Regression
-- Decision Trees
+- Decision Tree
 - Random Forest
-- Hyperparameter Tuning
+- Model Comparison
+- Overfitting
 - Confusion Matrix
 - Precision
 - Recall
@@ -216,54 +202,20 @@ The final notebook will include:
 
 ---
 
-# 🚀 How to Run
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/your-username/Telecom-Churn-Prediction.git
-```
-
-### 2. Navigate to the project directory
-
-```bash
-cd Telecom-Churn-Prediction
-```
-
-### 3. Install the required libraries
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Run the notebooks in order
-
-1. `01_EDA.ipynb`
-2. `02_Data_Preprocessing.ipynb`
-3. `03_Baseline_Model.ipynb`
-4. `04_Model_Comparison.ipynb`
-5. `05_Hyperparameter_Tuning.ipynb`
-6. `06_Final_Model.ipynb`
-
----
-
 # 🚀 Future Improvements
 
-- Implement LightGBM and CatBoost models.
-- Apply feature selection techniques.
-- Address class imbalance using SMOTE.
-- Optimize the decision threshold to improve churn detection.
-- Build an interactive web application using Streamlit or Flask.
-- Deploy the trained model to the cloud.
-- Monitor model performance on new customer data.
+- Hyperparameter tuning
+- XGBoost implementation
+- LightGBM and CatBoost comparison
+- Handle class imbalance using SMOTE
+- Build a Streamlit web application
+- Deploy the trained model
 
 ---
 
 # 📚 Learning Outcomes
 
-This project demonstrates a complete end-to-end machine learning classification workflow, from understanding the business problem and exploring the dataset to preprocessing, model building, evaluation, and model optimization.
-
-It also emphasizes interpreting model performance using business-focused metrics such as Precision, Recall, F1-Score, ROC Curve, and ROC-AUC, enabling data-driven decisions for improving customer retention.
+This project demonstrates a complete machine learning classification workflow, including data exploration, preprocessing, feature engineering, baseline modeling, model comparison, and evaluation using business-focused metrics such as Precision, Recall, F1-Score, and ROC-AUC.
 
 ---
 
