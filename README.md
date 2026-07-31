@@ -1,33 +1,34 @@
-# 📞 Telecom Customer Churn Prediction
+# Telecom Customer Churn Prediction
 
-An end-to-end **Machine Learning Classification** project that predicts whether a telecom customer is likely to **churn (leave the company)** or **stay**, based on customer demographics, subscription details, services used, contract type, and billing information.
+A machine learning classification project that predicts whether a telecom customer is likely to churn or continue using the service based on customer demographics, services, contract details, and billing information.
 
-This project follows a complete machine learning workflow, covering data exploration, preprocessing, model building, evaluation, hyperparameter tuning, and final model selection.
-
----
-
-# 🎯 Project Goal
-
-Customer retention is one of the biggest challenges for telecom companies. Acquiring a new customer is often significantly more expensive than retaining an existing one.
-
-The goal of this project is to build a machine learning model that predicts customer churn in advance, allowing telecom companies to take proactive actions such as personalized offers, loyalty programs, and improved customer support to improve customer retention.
+The project follows a complete machine learning workflow, starting from data exploration and preprocessing to model training, evaluation, hyperparameter tuning, and final model selection.
 
 ---
 
-# 📌 Project Progress
+## Project Objective
 
-- ✅ Exploratory Data Analysis (EDA)
-- ✅ Data Preprocessing
-- ✅ Baseline Model (Logistic Regression)
-- ✅ Model Comparison
-- ✅ Hyperparameter Tuning using RandomizedSearchCV
-- ⏳ Final Model Selection & Deployment Preparation
+Customer retention is an important challenge for telecom companies. Losing existing customers can be costly compared to retaining them.
+
+The objective of this project is to build a classification model that can identify customers who are likely to churn, allowing businesses to take proactive actions such as personalized offers, loyalty programs, and improved customer support.
 
 ---
 
-# 📂 Project Structure
+## Project Workflow
 
-```text
+- Exploratory Data Analysis (EDA)
+- Data Preprocessing
+- Baseline Model Development
+- Model Comparison
+- Hyperparameter Tuning
+- Final Model Selection
+- Model Saving and Prediction Testing
+
+---
+
+## Project Structure
+
+```
 Telecom-Churn-Prediction/
 
 │
@@ -41,6 +42,9 @@ Telecom-Churn-Prediction/
 │       ├── y_train.csv
 │       └── y_test.csv
 │
+├── models/
+│   └── logistic_regression_churn_model.pkl
+│
 ├── notebooks/
 │   ├── 01_EDA.ipynb
 │   ├── 02_Data_Preprocessing.ipynb
@@ -49,8 +53,6 @@ Telecom-Churn-Prediction/
 │   ├── 05_Hyperparameter_Tuning.ipynb
 │   └── 06_Final_Model.ipynb
 │
-├── models/
-│
 ├── README.md
 ├── requirements.txt
 └── .gitignore
@@ -58,81 +60,84 @@ Telecom-Churn-Prediction/
 
 ---
 
-# 📊 Dataset
+## Dataset
 
-- **Dataset:** Telco Customer Churn
-- **Rows:** 7,043
-- **Columns:** 21
-- **Target Variable:** `Churn`
+**Dataset:** Telco Customer Churn Dataset
 
-Each row represents one telecom customer, and the objective is to predict whether the customer will churn or continue using the service.
+- Rows: 7,043
+- Columns: 21
+- Target Variable: `Churn`
+
+Each row represents a telecom customer. The objective is to predict whether the customer will leave the service.
 
 ---
 
-# 🔍 Exploratory Data Analysis (EDA)
+# Exploratory Data Analysis
 
-### Analysis Performed
+The following analysis was performed:
 
 - Dataset overview
-- Data type inspection
+- Data type checking
 - Missing value analysis
-- Duplicate check
+- Duplicate checking
 - Target variable distribution
 - Univariate analysis
 - Bivariate analysis
 - Business insights
 
-### Key Findings
+### Key Insights
 
-- Most customers remain with the company.
+- Most customers do not churn.
 - The dataset has a moderate class imbalance:
-  - No Churn: ~73%
-  - Churn: ~27%
-- Customers with **month-to-month contracts** have the highest churn.
-- **New customers** are more likely to churn.
-- **Fiber optic** users show higher churn rates.
-- Customers paying through **electronic check** churn the most.
-- Customers using **automatic payment methods** have lower churn.
-- **Senior citizens** show a higher churn rate.
-- **Gender** has little impact on churn.
+  - No Churn: approximately 73%
+  - Churn: approximately 27%
+- Month-to-month contracts have the highest churn rate.
+- New customers are more likely to churn.
+- Fiber optic customers show higher churn rates.
+- Customers using electronic check payments have higher churn.
+- Automatic payment methods are associated with lower churn.
+- Senior citizens show a higher churn rate.
+- Gender has little effect on churn.
 
 ---
 
-# ⚙️ Data Preprocessing
+# Data Preprocessing
 
-The preprocessing pipeline included:
+The following preprocessing steps were performed:
 
-- Converted `TotalCharges` from object to numeric.
-- Handled hidden missing values stored as blank strings.
-- Removed rows with missing `TotalCharges`.
-- Dropped unnecessary `customerID` column.
+- Converted `TotalCharges` from object to numeric format.
+- Handled blank values in `TotalCharges`.
+- Removed rows containing missing values.
+- Dropped `customerID` as it does not contribute to prediction.
 - Applied Label Encoding to binary categorical variables.
 - Applied One-Hot Encoding to multi-category variables.
-- Performed an 80:20 train-test split.
-- Applied StandardScaler to numerical features.
+- Split the dataset into training and testing sets (80:20).
+- Applied StandardScaler for feature scaling.
 - Saved processed datasets for model training.
 
 ---
 
-# 🤖 Baseline Model (Logistic Regression)
+# Baseline Model
 
-Logistic Regression was used as the baseline classification model.
+## Logistic Regression
+
+Logistic Regression was selected as the baseline model.
+
+Performance:
 
 | Metric | Score |
-|---------|------:|
-| Accuracy | **78.75%** |
-| Precision | **62.06%** |
-| Recall | **51.60%** |
-| F1-Score | **56.35%** |
-| ROC-AUC | **83.19%** |
+|---|---:|
+| Accuracy | 78.75% |
+| Precision | 62.06% |
+| Recall | 51.60% |
+| F1-Score | 56.35% |
+| ROC-AUC | 83.19% |
 
-### Observation
-
-The baseline model performed well despite the class imbalance, especially based on ROC-AUC and F1-score.
+The baseline model showed good separation ability based on ROC-AUC and provided a strong starting point for comparison.
 
 ---
 
-# 📊 Model Comparison
+# Model Comparison
 
 The following models were evaluated:
 
@@ -141,28 +146,30 @@ The following models were evaluated:
 - Random Forest Classifier
 
 | Model | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
-|--------|---------:|----------:|--------:|---------:|--------:|
-| Logistic Regression | **0.7875** | 0.6206 | **0.5160** | **0.5635** | **0.8319** |
+|---|---:|---:|---:|---:|---:|
+| Logistic Regression | 0.7875 | 0.6206 | 0.5160 | **0.5635** | **0.8319** |
 | Decision Tree | 0.7335 | 0.4988 | **0.5481** | 0.5223 | 0.6739 |
 | Random Forest | 0.7846 | **0.6300** | 0.4599 | 0.5317 | 0.8179 |
 
-### Key Observations
+### Observations
 
-- Logistic Regression achieved the best overall balance with the highest F1-score and ROC-AUC.
-- Decision Tree showed strong recall but suffered from severe overfitting.
-- Random Forest achieved better precision but lower recall compared to Logistic Regression.
+- Logistic Regression provided the best overall balance between precision, recall, F1-score, and ROC-AUC.
+- Decision Tree achieved higher recall but suffered from overfitting.
+- Random Forest achieved better precision but had lower recall compared to Logistic Regression.
 
 ---
 
-# 🎯 Hyperparameter Tuning
+# Hyperparameter Tuning
 
-Random Forest was optimized using **RandomizedSearchCV** with:
+Random Forest was optimized using RandomizedSearchCV.
 
-- 5-fold Cross Validation
-- F1-score as the optimization metric
-- Random search over multiple hyperparameter combinations
+Configuration:
 
-### Best Hyperparameters
+- 5-fold cross-validation
+- F1-score used as the optimization metric
+- Multiple hyperparameter combinations tested
+
+Best parameters:
 
 ```python
 {
@@ -176,51 +183,62 @@ Random Forest was optimized using **RandomizedSearchCV** with:
 
 ---
 
-# 📈 Tuned Random Forest Performance
+## Tuned Random Forest Performance
 
 | Metric | Score |
-|---------|------:|
-| Accuracy | **79.46%** |
-| Precision | **65.68%** |
-| Recall | **47.59%** |
-| F1-Score | **55.19%** |
-| ROC-AUC | **83.16%** |
+|---|---:|
+| Accuracy | 79.46% |
+| Precision | 65.68% |
+| Recall | 47.59% |
+| F1-Score | 55.19% |
+| ROC-AUC | 83.16% |
 
 ---
 
-# 🔍 Overfitting Reduction
+## Overfitting Analysis
 
 Before tuning:
 
 | Model | Training Accuracy | Testing Accuracy |
-|-------|------------------:|-----------------:|
+|---|---:|---:|
 | Random Forest | 99.77% | 78.46% |
 
 After tuning:
 
 | Model | Training Accuracy | Testing Accuracy |
-|-------|------------------:|-----------------:|
+|---|---:|---:|
 | Tuned Random Forest | 84.99% | 79.46% |
 
-### Observation
-
-Hyperparameter tuning significantly reduced overfitting by limiting tree complexity while maintaining strong performance on unseen data.
+Hyperparameter tuning reduced overfitting by limiting model complexity while maintaining performance on unseen data.
 
 ---
 
-# 🏆 Final Model
+# Final Model
 
-The final notebook will include:
+After comparing all models, Logistic Regression was selected as the final model.
 
-- Comparing Logistic Regression and Tuned Random Forest.
-- Selecting the final model based on evaluation metrics.
-- Training the selected model.
-- Saving the trained model using Joblib.
-- Testing predictions on new customer data.
+Reasons for selection:
+
+- Highest F1-score
+- Highest ROC-AUC score
+- Better recall compared to Random Forest
+- Easier interpretation for business decisions
+
+Final model performance:
+
+| Metric | Score |
+|---|---:|
+| Accuracy | 78.75% |
+| Precision | 62.06% |
+| Recall | 51.60% |
+| F1-Score | 56.35% |
+| ROC-AUC | 83.19% |
+
+The trained model was saved using Joblib and tested by loading it back and making predictions on unseen data.
 
 ---
 
-# 🧠 Machine Learning Concepts Covered
+# Machine Learning Concepts Covered
 
 - Binary Classification
 - Exploratory Data Analysis
@@ -233,7 +251,6 @@ The final notebook will include:
 - Logistic Regression
 - Decision Trees
 - Random Forest
-- Model Comparison
 - Cross Validation
 - RandomizedSearchCV
 - Hyperparameter Tuning
@@ -241,14 +258,13 @@ The final notebook will include:
 - Confusion Matrix
 - Precision
 - Recall
-- F1-Score
-- ROC Curve
+- F1-score
 - ROC-AUC
 - Model Evaluation
 
 ---
 
-# 🛠️ Technologies Used
+# Technologies Used
 
 - Python
 - Pandas
@@ -260,24 +276,26 @@ The final notebook will include:
 
 ---
 
-# 🚀 Future Improvements
+# Future Improvements
 
-- Implement XGBoost, LightGBM, and CatBoost.
-- Experiment with class imbalance techniques such as SMOTE and class weighting.
+Possible improvements for this project:
+
+- Experiment with XGBoost, LightGBM, and CatBoost.
+- Handle class imbalance using SMOTE or class weighting.
 - Perform feature selection.
-- Build an interactive churn prediction application using Streamlit.
+- Build a Streamlit web application.
 - Deploy the model using cloud services.
 
 ---
 
-# 📚 Learning Outcomes
+# Learning Outcomes
 
-This project demonstrates a complete machine learning classification pipeline, from understanding the business problem and exploring customer behavior to preprocessing data, building classification models, optimizing performance, and selecting a final model using data-driven evaluation.
+This project helped me understand the complete machine learning workflow, from exploring real-world data and preprocessing it to training models, comparing algorithms, tuning hyperparameters, and selecting a final model based on appropriate evaluation metrics.
 
-The project also highlights the importance of choosing appropriate evaluation metrics for imbalanced datasets instead of relying only on accuracy.
+The project also highlights why metrics such as Precision, Recall, F1-score, and ROC-AUC are important when working with imbalanced classification problems.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
-**Reevan Machado**
+Reevan Machado
