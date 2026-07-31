@@ -2,15 +2,26 @@
 
 An end-to-end **Machine Learning Classification** project that predicts whether a telecom customer is likely to **churn (leave the company)** or **stay**, based on customer demographics, subscription details, services used, contract type, and billing information.
 
-This project follows a complete machine learning workflow, including **Exploratory Data Analysis (EDA)**, **Data Preprocessing**, **Model Building**, **Model Comparison**, **Hyperparameter Tuning**, and **Final Model Evaluation**.
+This project is being built as a complete machine learning pipeline, covering everything from data exploration and preprocessing to model building, evaluation, hyperparameter tuning, and final model selection.
 
 ---
 
 # 🎯 Project Goal
 
-Customer retention is one of the biggest challenges for telecom companies. Acquiring a new customer is often more expensive than retaining an existing one.
+Customer retention is one of the biggest challenges for telecom companies. Acquiring a new customer is often significantly more expensive than retaining an existing one.
 
-The goal of this project is to build a machine learning model that predicts customer churn in advance so that businesses can proactively retain at-risk customers through targeted offers, improved customer support, and personalized retention strategies.
+The goal of this project is to develop a machine learning model that predicts customer churn before it happens, enabling telecom companies to take proactive actions such as personalized offers, loyalty programs, and improved customer support to reduce customer attrition.
+
+---
+
+# 📌 Current Progress
+
+- ✅ Exploratory Data Analysis (EDA)
+- ✅ Data Preprocessing
+- ✅ Baseline Model (Logistic Regression)
+- ⏳ Model Comparison
+- ⏳ Hyperparameter Tuning
+- ⏳ Final Model
 
 ---
 
@@ -49,40 +60,40 @@ Telecom-Churn-Prediction/
 
 # 📊 Dataset
 
-* **Dataset:** Telco Customer Churn
-* **Rows:** 7,043
-* **Columns:** 21
-* **Target Variable:** `Churn`
+- **Dataset:** Telco Customer Churn
+- **Rows:** 7,043
+- **Columns:** 21
+- **Target Variable:** `Churn`
 
-Each record represents one telecom customer, and the objective is to predict whether the customer will churn.
+Each row represents one telecom customer, and the objective is to predict whether the customer will churn or remain with the company.
 
 ---
 
 # 🔍 Exploratory Data Analysis (EDA)
 
-The EDA focused on understanding customer behavior and identifying patterns associated with churn.
+The EDA focused on understanding customer behavior and identifying factors that influence churn.
 
 ### Analysis Performed
 
-* Dataset overview
-* Data type inspection
-* Missing value analysis
-* Duplicate check
-* Target variable distribution
-* Univariate analysis
-* Bivariate analysis
-* Business insights
+- Dataset overview
+- Data type inspection
+- Missing value analysis
+- Duplicate check
+- Target variable distribution
+- Univariate analysis
+- Bivariate analysis
+- Business insights
 
 ### Key Findings
 
-* Most customers remain with the company.
-* Customers with **month-to-month contracts** have the highest churn.
-* **New customers** are more likely to churn.
-* **Fiber optic** users have the highest churn rate.
-* Customers paying through **electronic check** churn the most.
-* Customers using **automatic payment methods** are less likely to churn.
-* **Senior citizens** show a higher churn rate.
-* **Gender** has little influence on churn.
+- Most customers remain with the company.
+- Customers with **month-to-month contracts** have the highest churn.
+- **New customers** are more likely to churn.
+- **Fiber optic** users have the highest churn rate.
+- Customers paying through **electronic check** churn the most.
+- Customers using **automatic payment methods** are less likely to churn.
+- **Senior citizens** have a higher churn rate.
+- **Gender** has little influence on churn.
 
 ---
 
@@ -90,146 +101,169 @@ The EDA focused on understanding customer behavior and identifying patterns asso
 
 The preprocessing pipeline included:
 
-* Converted `TotalCharges` from `object` to numeric.
-* Identified hidden missing values stored as blank strings.
-* Removed rows with missing `TotalCharges`.
-* Dropped the `customerID` column.
-* Applied **Label Encoding** to binary categorical features.
-* Applied **One-Hot Encoding** to multi-category features.
-* Performed an 80:20 train-test split.
-* Applied **StandardScaler** to numerical features.
-* Saved the processed datasets for model training.
+- Converted `TotalCharges` from `object` to numeric.
+- Identified hidden missing values stored as blank strings.
+- Removed rows with missing `TotalCharges`.
+- Dropped the `customerID` column.
+- Applied Label Encoding to binary categorical variables.
+- Applied One-Hot Encoding to multi-category variables.
+- Performed an 80:20 train-test split.
+- Applied StandardScaler to numerical features.
+- Saved the processed datasets for future model training.
 
 ---
 
-# 🤖 Model Building
+# 🤖 Baseline Model
 
-## Baseline Model
+The first classification model built for this project is **Logistic Regression**, which serves as the baseline for comparing more advanced machine learning models.
 
-* Logistic Regression
+## Baseline Model Performance
 
-Evaluation Metrics:
+| Metric | Score |
+|---------|------:|
+| Accuracy | **79%** |
+| Precision (Churn) | **62%** |
+| Recall (Churn) | **52%** |
+| F1-Score (Churn) | **56%** |
+| ROC-AUC | **0.8319** |
 
-* Accuracy
-* Precision
-* Recall
-* F1-Score
-* ROC-AUC Score
+### Key Observations
+
+- The model achieved good overall accuracy (**79%**).
+- It performs well in identifying customers who stay with the company.
+- It detects approximately **52%** of customers who actually churn.
+- The **ROC-AUC score of 0.8319** indicates a strong ability to distinguish between customers who churn and those who stay.
+- This model serves as a benchmark for evaluating more advanced classification algorithms.
 
 ---
 
 # 📊 Model Comparison
 
-The following classification models are compared:
+The following machine learning models will be compared:
 
-* Logistic Regression
-* Decision Tree Classifier
-* Random Forest Classifier
-* XGBoost Classifier *(optional)*
+- Logistic Regression
+- Decision Tree Classifier
+- Random Forest Classifier
+- XGBoost Classifier *(optional)*
 
-The best-performing model is selected based on evaluation metrics.
+Each model will be evaluated using:
+
+- Accuracy
+- Precision
+- Recall
+- F1-Score
+- ROC-AUC Score
+
+The best-performing model will be selected based on its ability to accurately identify customers at risk of churn.
 
 ---
 
 # 🎯 Hyperparameter Tuning
 
-Model performance is improved using:
+The best-performing model from the comparison stage will be optimized using:
 
-* RandomizedSearchCV
-* GridSearchCV *(optional)*
+- RandomizedSearchCV
+- GridSearchCV *(optional)*
 
-The tuned model is then evaluated on the test dataset.
+The tuned model will then be evaluated on the test dataset to improve predictive performance.
 
 ---
 
 # 🏆 Final Model
 
-The final notebook includes:
+The final notebook will include:
 
-* Training the optimized model
-* Model evaluation
-* Feature importance analysis (if applicable)
-* Saving the trained model for future predictions
+- Training the optimized model
+- Final model evaluation
+- Feature importance analysis (if applicable)
+- Saving the trained model for future predictions
 
 ---
 
 # 🧠 Machine Learning Concepts Covered
 
-* Binary Classification
-* Exploratory Data Analysis (EDA)
-* Data Cleaning
-* Missing Value Handling
-* Feature Engineering
-* Label Encoding
-* One-Hot Encoding
-* Feature Scaling
-* Logistic Regression
-* Decision Trees
-* Random Forest
-* Hyperparameter Tuning
-* Confusion Matrix
-* Precision
-* Recall
-* F1-Score
-* ROC Curve
-* ROC-AUC
-* Model Evaluation
+- Binary Classification
+- Exploratory Data Analysis (EDA)
+- Data Cleaning
+- Missing Value Handling
+- Feature Engineering
+- Label Encoding
+- One-Hot Encoding
+- Feature Scaling
+- Logistic Regression
+- Decision Trees
+- Random Forest
+- Hyperparameter Tuning
+- Confusion Matrix
+- Precision
+- Recall
+- F1-Score
+- ROC Curve
+- ROC-AUC
+- Model Evaluation
 
 ---
 
 # 🛠️ Technologies Used
 
-* Python
-* Pandas
-* NumPy
-* Matplotlib
-* Seaborn
-* Scikit-learn
-* Jupyter Notebook
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- Jupyter Notebook
 
 ---
 
 # 🚀 How to Run
 
-1. Clone this repository.
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/your-username/Telecom-Churn-Prediction.git
 ```
 
-2. Install the required libraries.
+### 2. Navigate to the project directory
+
+```bash
+cd Telecom-Churn-Prediction
+```
+
+### 3. Install the required libraries
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Open the notebooks in Jupyter Notebook or VS Code.
+### 4. Run the notebooks in order
 
-4. Run the notebooks in order:
-
-* 01_EDA.ipynb
-* 02_Data_Preprocessing.ipynb
-* 03_Baseline_Model.ipynb
-* 04_Model_Comparison.ipynb
-* 05_Hyperparameter_Tuning.ipynb
-* 06_Final_Model.ipynb
+1. `01_EDA.ipynb`
+2. `02_Data_Preprocessing.ipynb`
+3. `03_Baseline_Model.ipynb`
+4. `04_Model_Comparison.ipynb`
+5. `05_Hyperparameter_Tuning.ipynb`
+6. `06_Final_Model.ipynb`
 
 ---
 
 # 🚀 Future Improvements
 
-* Implement LightGBM and CatBoost models.
-* Apply feature selection techniques.
-* Address class imbalance using SMOTE.
-* Build an interactive web application using Streamlit or Flask.
-* Deploy the trained model to the cloud.
-* Monitor model performance on new customer data.
+- Implement LightGBM and CatBoost models.
+- Apply feature selection techniques.
+- Address class imbalance using SMOTE.
+- Optimize the decision threshold to improve churn detection.
+- Build an interactive web application using Streamlit or Flask.
+- Deploy the trained model to the cloud.
+- Monitor model performance on new customer data.
 
 ---
 
 # 📚 Learning Outcomes
 
-This project demonstrates a complete end-to-end machine learning classification pipeline. It covers the entire workflow from understanding the business problem and exploring the dataset to preprocessing, model building, hyperparameter tuning, and performance evaluation. It also emphasizes translating data insights into actionable business strategies for improving customer retention.
+This project demonstrates a complete end-to-end machine learning classification workflow, from understanding the business problem and exploring the dataset to preprocessing, model building, evaluation, and model optimization.
+
+It also emphasizes interpreting model performance using business-focused metrics such as Precision, Recall, F1-Score, ROC Curve, and ROC-AUC, enabling data-driven decisions for improving customer retention.
 
 ---
 
