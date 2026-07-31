@@ -2,7 +2,7 @@
 
 An end-to-end **Machine Learning Classification** project that predicts whether a telecom customer is likely to **churn (leave the company)** or **stay**, based on customer demographics, subscription details, services used, contract type, and billing information.
 
-This project is being built as a complete machine learning pipeline, covering everything from data exploration and preprocessing to model building, evaluation, hyperparameter tuning, and final model selection.
+This project follows a complete machine learning workflow, covering data exploration, preprocessing, model building, evaluation, hyperparameter tuning, and final model selection.
 
 ---
 
@@ -10,18 +10,18 @@ This project is being built as a complete machine learning pipeline, covering ev
 
 Customer retention is one of the biggest challenges for telecom companies. Acquiring a new customer is often significantly more expensive than retaining an existing one.
 
-The goal of this project is to develop a machine learning model that predicts customer churn before it happens, enabling telecom companies to take proactive actions such as personalized offers, loyalty programs, and improved customer support to reduce customer attrition.
+The goal of this project is to build a machine learning model that predicts customer churn in advance, allowing telecom companies to take proactive actions such as personalized offers, loyalty programs, and improved customer support to improve customer retention.
 
 ---
 
-# 📌 Current Progress
+# 📌 Project Progress
 
 - ✅ Exploratory Data Analysis (EDA)
 - ✅ Data Preprocessing
 - ✅ Baseline Model (Logistic Regression)
 - ✅ Model Comparison
-- ⏳ Hyperparameter Tuning
-- ⏳ Final Model
+- ✅ Hyperparameter Tuning using RandomizedSearchCV
+- ⏳ Final Model Selection & Deployment Preparation
 
 ---
 
@@ -65,7 +65,7 @@ Telecom-Churn-Prediction/
 - **Columns:** 21
 - **Target Variable:** `Churn`
 
-Each row represents one telecom customer, and the objective is to predict whether the customer will churn or remain with the company.
+Each row represents one telecom customer, and the objective is to predict whether the customer will churn or continue using the service.
 
 ---
 
@@ -85,13 +85,16 @@ Each row represents one telecom customer, and the objective is to predict whethe
 ### Key Findings
 
 - Most customers remain with the company.
+- The dataset has a moderate class imbalance:
+  - No Churn: ~73%
+  - Churn: ~27%
 - Customers with **month-to-month contracts** have the highest churn.
 - **New customers** are more likely to churn.
-- **Fiber optic** users have the highest churn rate.
+- **Fiber optic** users show higher churn rates.
 - Customers paying through **electronic check** churn the most.
-- Customers using **automatic payment methods** are less likely to churn.
-- **Senior citizens** have a higher churn rate.
-- **Gender** has little influence on churn.
+- Customers using **automatic payment methods** have lower churn.
+- **Senior citizens** show a higher churn rate.
+- **Gender** has little impact on churn.
 
 ---
 
@@ -99,19 +102,21 @@ Each row represents one telecom customer, and the objective is to predict whethe
 
 The preprocessing pipeline included:
 
-- Converted `TotalCharges` from `object` to numeric.
-- Identified hidden missing values stored as blank strings.
+- Converted `TotalCharges` from object to numeric.
+- Handled hidden missing values stored as blank strings.
 - Removed rows with missing `TotalCharges`.
-- Dropped the `customerID` column.
+- Dropped unnecessary `customerID` column.
 - Applied Label Encoding to binary categorical variables.
 - Applied One-Hot Encoding to multi-category variables.
 - Performed an 80:20 train-test split.
 - Applied StandardScaler to numerical features.
-- Saved the processed datasets for future model training.
+- Saved processed datasets for model training.
 
 ---
 
 # 🤖 Baseline Model (Logistic Regression)
+
+Logistic Regression was used as the baseline classification model.
 
 | Metric | Score |
 |---------|------:|
@@ -119,39 +124,87 @@ The preprocessing pipeline included:
 | Precision | **62.06%** |
 | Recall | **51.60%** |
 | F1-Score | **56.35%** |
-| ROC-AUC | **0.8319** |
+| ROC-AUC | **83.19%** |
 
-The Logistic Regression model served as the baseline and demonstrated strong overall performance, particularly in terms of ROC-AUC and balanced classification performance.
+### Observation
+
+The baseline model performed well despite the class imbalance, especially based on ROC-AUC and F1-score.
 
 ---
 
 # 📊 Model Comparison
 
-Three machine learning algorithms were compared:
+The following models were evaluated:
+
+- Logistic Regression
+- Decision Tree Classifier
+- Random Forest Classifier
 
 | Model | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
 |--------|---------:|----------:|--------:|---------:|--------:|
-| Logistic Regression | **0.7875** | 0.6206 | 0.5160 | **0.5635** | **0.8319** |
+| Logistic Regression | **0.7875** | 0.6206 | **0.5160** | **0.5635** | **0.8319** |
 | Decision Tree | 0.7335 | 0.4988 | **0.5481** | 0.5223 | 0.6739 |
 | Random Forest | 0.7846 | **0.6300** | 0.4599 | 0.5317 | 0.8179 |
 
 ### Key Observations
 
-- **Logistic Regression** achieved the highest overall performance based on **F1-Score** and **ROC-AUC**.
-- **Decision Tree** achieved the highest recall but showed significant overfitting.
-- **Random Forest** achieved the highest precision but missed more churning customers than Logistic Regression.
-- Logistic Regression was selected as the strongest baseline model before hyperparameter tuning.
+- Logistic Regression achieved the best overall balance with the highest F1-score and ROC-AUC.
+- Decision Tree showed strong recall but suffered from severe overfitting.
+- Random Forest achieved better precision but lower recall compared to Logistic Regression.
 
 ---
 
 # 🎯 Hyperparameter Tuning
 
-The next stage focuses on optimizing the best-performing models using:
+Random Forest was optimized using **RandomizedSearchCV** with:
 
-- RandomizedSearchCV
-- GridSearchCV *(optional)*
+- 5-fold Cross Validation
+- F1-score as the optimization metric
+- Random search over multiple hyperparameter combinations
 
-The goal is to reduce overfitting and improve churn prediction performance.
+### Best Hyperparameters
+
+```python
+{
+    'n_estimators': 200,
+    'max_depth': 10,
+    'min_samples_split': 10,
+    'min_samples_leaf': 1,
+    'max_features': 'sqrt'
+}
+```
+
+---
+
+# 📈 Tuned Random Forest Performance
+
+| Metric | Score |
+|---------|------:|
+| Accuracy | **79.46%** |
+| Precision | **65.68%** |
+| Recall | **47.59%** |
+| F1-Score | **55.19%** |
+| ROC-AUC | **83.16%** |
+
+---
+
+# 🔍 Overfitting Reduction
+
+Before tuning:
+
+| Model | Training Accuracy | Testing Accuracy |
+|-------|------------------:|-----------------:|
+| Random Forest | 99.77% | 78.46% |
+
+After tuning:
+
+| Model | Training Accuracy | Testing Accuracy |
+|-------|------------------:|-----------------:|
+| Tuned Random Forest | 84.99% | 79.46% |
+
+### Observation
+
+Hyperparameter tuning significantly reduced overfitting by limiting tree complexity while maintaining strong performance on unseen data.
 
 ---
 
@@ -159,27 +212,32 @@ The goal is to reduce overfitting and improve churn prediction performance.
 
 The final notebook will include:
 
-- Training the optimized model
-- Final model evaluation
-- Feature importance analysis
-- Saving the trained model
+- Comparing Logistic Regression and Tuned Random Forest.
+- Selecting the final model based on evaluation metrics.
+- Training the selected model.
+- Saving the trained model using Joblib.
+- Testing predictions on new customer data.
 
 ---
 
 # 🧠 Machine Learning Concepts Covered
 
 - Binary Classification
-- Exploratory Data Analysis (EDA)
+- Exploratory Data Analysis
 - Data Cleaning
 - Missing Value Handling
+- Feature Engineering
 - Label Encoding
 - One-Hot Encoding
 - Feature Scaling
 - Logistic Regression
-- Decision Tree
+- Decision Trees
 - Random Forest
 - Model Comparison
-- Overfitting
+- Cross Validation
+- RandomizedSearchCV
+- Hyperparameter Tuning
+- Overfitting Detection
 - Confusion Matrix
 - Precision
 - Recall
@@ -204,18 +262,19 @@ The final notebook will include:
 
 # 🚀 Future Improvements
 
-- Hyperparameter tuning
-- XGBoost implementation
-- LightGBM and CatBoost comparison
-- Handle class imbalance using SMOTE
-- Build a Streamlit web application
-- Deploy the trained model
+- Implement XGBoost, LightGBM, and CatBoost.
+- Experiment with class imbalance techniques such as SMOTE and class weighting.
+- Perform feature selection.
+- Build an interactive churn prediction application using Streamlit.
+- Deploy the model using cloud services.
 
 ---
 
 # 📚 Learning Outcomes
 
-This project demonstrates a complete machine learning classification workflow, including data exploration, preprocessing, feature engineering, baseline modeling, model comparison, and evaluation using business-focused metrics such as Precision, Recall, F1-Score, and ROC-AUC.
+This project demonstrates a complete machine learning classification pipeline, from understanding the business problem and exploring customer behavior to preprocessing data, building classification models, optimizing performance, and selecting a final model using data-driven evaluation.
+
+The project also highlights the importance of choosing appropriate evaluation metrics for imbalanced datasets instead of relying only on accuracy.
 
 ---
 
